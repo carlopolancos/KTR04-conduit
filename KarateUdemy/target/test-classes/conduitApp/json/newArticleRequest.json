@@ -1,0 +1,10 @@
+{
+    "article": {
+        "title": "Sample Title Should Be Unique",
+        "description": "Sample About",
+        "body": "Markdown!",
+        "tagList": [
+            "tags"
+        ]
+    }
+}
