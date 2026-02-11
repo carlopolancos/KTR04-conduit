@@ -18,7 +18,10 @@ function fn() {
       config.userPassword = 'mastercarlo0987123!?';
   }
 
-  var token = karate.callSingle('classpath:helpers/CreateToken.feature', config).token;
-  karate.configure('headers', {Authorization: 'Token ' + token});
+  var result = karate.callSingle('classpath:helpers/CreateToken.feature', config);
+  config.authToken = result.token; 
+  karate.configure('headers', { Authorization: 'Token ' + config.authToken });
+  karate.configure('logPrettyRequest', true);
+  karate.configure('logPrettyResponse', true);
   return config;
 }

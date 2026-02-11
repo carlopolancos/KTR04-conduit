@@ -7,23 +7,27 @@ import net.minidev.json.JSONObject;
 public class DataGenerator {
 
     static Faker faker = new Faker();
-    static String firstName = faker.name().firstName();
-    static String lastName = faker.name().lastName();
+    String firstName = faker.name().firstName();
+    int number = faker.number().numberBetween(1, 1000);
+    String lastName = faker.name().lastName();
 
 
-    //methods have to be static to be called easier
-    public static String getRandomEmail() {
-        return "test" + firstName.toLowerCase() + faker.random().nextInt(0,100) + "@test.com";
-    }
+    //methods have to be static to be called easier, fails many test due to static
+    // public static String getRandomEmail() {
+    //     return "test" + firstName.toLowerCase() + number + "@test.com";
+    // }
     
-    public static String getRandomUsername() {
-        return "test" + firstName.toLowerCase() + "." + lastName.toLowerCase();
+    // public static String getRandomUsername() {
+    //     return firstName.toLowerCase() + "." + lastName.toLowerCase();
+    // }
+    
+    public String getRandomEmail2() {
+        return "test" + firstName.toLowerCase() + number + "@test.com";
     }
     
     public String getRandomUsername2() {
-        return "test" + firstName.toLowerCase() + "." + lastName.toLowerCase();
+        return firstName.toLowerCase() + "TesT" + lastName.toLowerCase();
     }
-
     public static JSONObject getRandomArticleValues() {
         String title = faker.gameOfThrones().dragon();
         String description = faker.gameOfThrones().city();

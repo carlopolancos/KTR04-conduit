@@ -57,3 +57,65 @@ Feature: Tests for the home page
             }
         }
         """
+
+    Scenario: Conditional Logic
+        * configure retry = { count: 3, interval: 3000 }
+        Given params { limit: 10, offset: 0 }
+        Given path 'articles'
+        And retry until responseStatus == 200
+        When method get
+        Then status 200
+        * def firstFavoritesCount = response.articles[0].favoritesCount
+        * def firstFavorited = response.articles[0].favorited
+        * def firstArticle = response.articles[0]
+        * print 'First article slug:', firstArticle.slug
+        * print 'First article favoritesCount:', firstFavoritesCount
+        * print 'First article favorited:', firstFavorited
+
+        # * if (firstFavoritesCount == 0) { karate.call('classpath:helpers/AddLikes.feature', firstArticle)}
+
+        * def result = firstFavorited == false ? karate.call('classpath:helpers/AddLikes.feature', { slug: firstArticle.slug, token: authToken }).newLikesCount : firstFavoritesCount
+
+        Given params { limit: 10, offset: 0 }
+        Given path 'articles'
+        When method get
+        Then status 200
+        And match response.articles[0].favoritesCount == result
+
+    Scenario: Retry call
+        * configure retry = { count: 10, interval: 5000 }
+
+        Given params { limit: 10, offset: 0 }
+        And path 'articles'
+        And retry until response.articles[0].favoritesCount > 1
+        When method get
+        Then status 200
+
+    Scenario: Sleep  call
+        * def sleep = function(ms){ java.lang.Thread.sleep(ms); }
+
+        Given params { limit: 10, offset: 0 }
+        And path 'articles'
+        And retry until response.articles[0].favoritesCount > 1
+        When method get
+        * eval sleep(10000)
+        Then status 200
+
+    Scenario: Number to string
+        # * match 10 == '10'
+        * def foo = 10
+        * def json = {"bar": #(foo)} //does not work
+        * def json = {"bar": #(foo+'')}
+        * match json.bar == '10'
+
+    Scenario: String to number
+        # * match '10' == 10
+        * def foo = '10'
+        * def json = {"bar": #(Number(foo))}
+        * def json2 = {"bar": #(foo*1)}
+        * def json3 = {"bar": #(parseInt(foo))}
+        * def json4 = {"bar": #(~~parseInt(foo))}
+        * match json.bar == 10
+        * match json2.bar == 10
+        * match json3.bar == 10
+        * match json4.bar == 10

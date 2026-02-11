@@ -1,4 +1,4 @@
-@homework
+@debug @homework
 Feature: Homework
 
     Background: Define base URL
@@ -29,7 +29,8 @@ Feature: Homework
         And params {favorited: emailsample, limit: 10, offset: 0}
         When method get
         Then status 200
-        And match response == getFavoriteArticlesResponseBody
+        And match each response.articles == getFavoriteArticlesResponseBody
+        And match response.articlesCount == "#number"
         And match response.articles[0].slug contains firstSlug
 
     Scenario: Comment Articles
