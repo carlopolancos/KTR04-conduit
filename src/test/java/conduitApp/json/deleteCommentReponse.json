@@ -1,0 +1,14 @@
+{
+    "comment": {
+        "id": "#number",
+        "createdAt": "#? timeValidator(_)",
+        "updatedAt": "#? timeValidator(_)",
+        "body": "#(newCommentBody)",
+        "author": {
+            "username": "#string",
+            "bio": "#null",
+            "image": "#string",
+            "following": "#boolean"
+        }
+    }
+}

@@ -1,0 +1,2 @@
+App: https://conduit.bondaracademy.com/
+API: https://conduit-api.bondaracademy.com/
