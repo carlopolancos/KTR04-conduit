@@ -2,4 +2,7 @@ mvn clean test
 mvn clean test '-Dkarate.env=dev' /qa
 mvn clean test '-Dkarate.options=--tags @debug' '-Dkarate.env=dev' /qa
 mvn clean test '-Dkarate.options=--tags ~@skipme' '-Dkarate.env=dev' /qa
-mvn clean test '-Dkarate.options=classpath:conduitApp/feature/Homepage.feature:6' '-Dkarate.env=dev' /qa //Where scenario is
+mvn clean test '-Dkarate.options=classpath:conduitApp/feature/Homepage.feature:6' '-Dkarate.env=dev' /qa
+
+GATLING TESTS
+mvn clean test-compile gatling:test

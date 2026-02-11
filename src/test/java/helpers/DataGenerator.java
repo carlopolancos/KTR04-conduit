@@ -26,7 +26,7 @@ public class DataGenerator {
     }
     
     public String getRandomUsername2() {
-        return firstName.toLowerCase() + "TesT" + lastName.toLowerCase();
+        return firstName.toLowerCase() + "T" + lastName.toLowerCase();
     }
     public static JSONObject getRandomArticleValues() {
         String title = faker.gameOfThrones().dragon();
